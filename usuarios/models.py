@@ -18,4 +18,8 @@ class Usuarios(models.Model):
   cpf = models.CharField(max_length=16,null=True, blank=False, verbose_name = "CPF")
   numero_pis = models.CharField(max_length=11 ,null=True, blank=False, verbose_name = "Número do PIS")
   senha = models.CharField(max_length=30, null=True, blank=False, verbose_name = "Senha")
-
+  class Meta:
+    db_table = "usuarios"
+    
+  def __str__(self):
+    return self.nome
