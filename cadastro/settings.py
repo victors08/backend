@@ -49,8 +49,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'usuarios',
     'rest_framework',
-    'usuarios'
+    'rest_framework_simplejwt',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -117,11 +119,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-#REST_FRAMEWORK = {
- #   'DEFAULT_AUTHENTICATION_CLASSES': (
-  #      'rest_framework_simplejwt.authentication.JWTAuthentication',
-   # )
-#}
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework_simplejwt.authentication.JWTAuthentication',
+   ),
+   'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
 
 
 # Internationalization
@@ -135,10 +138,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
 
