@@ -27,22 +27,24 @@ class UsuariosPost(APIView):
     else:
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UsuariosDetails(APIView):
+class UsuariosGetEspecifico(APIView):
  def get(self, request, id):
   usuario = get_object_or_404(models.Usuarios.objects.all(), id=id)
   serializer = UsuariosSerializer(usuario)
   return Response(serializer.data, status = status.HTTP_200_OK)
 
-def put(self, request, id):
-  usuario = get_object_or_404(models.Usuarios.objects.all(), id=id)
-  serializer = UsuariosSerializer(usuario, data=request.data)
-  if serializer.is_valid():
-    serializer.save()
-    return Response(serializer.data, status=status.HTTP_201_CREATED)
-  else:
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-  
-def delete(self, request, id):
-  usuario = get_object_or_404(models.Usuarios.objects.all(), id=id)
-  usuario.delete()
-  return Response(status=status.HTTP_204_NO_CONTENT)
+class UsuariosPut(APIView):
+  def put(self, request, id):
+    usuario = get_object_or_404(models.Usuarios.objects.all(), id=id)
+    serializer = UsuariosSerializer(usuario, data=request.data)
+    if serializer.is_valid():
+      serializer.save()
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class UsuariosDelete(APIView):
+  def delete(self, request, id):
+    usuario = get_object_or_404(models.Usuarios.objects.all(), id=id)
+    usuario.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
