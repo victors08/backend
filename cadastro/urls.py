@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from usuarios.api.viewsets import UsuariosGet, UsuariosPost, UsuariosGetEspecifico, UsuariosPut, UsuariosDelete
+from usuarios.api.viewsets import UsuariosGet, UsuarioLogin, UsuariosPost, UsuariosGetEspecifico, UsuariosPut, UsuariosDelete
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -19,6 +19,7 @@ urlpatterns = [
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('usuarios/', UsuariosGet.as_view()),
+    path('login/<email>', UsuarioLogin.as_view()),
     path('usuarios/create/', UsuariosPost.as_view()),
     path('usuarios/<int:id>/', UsuariosGetEspecifico.as_view()),
     path('usuarios/update/<int:id>/', UsuariosPut.as_view()),

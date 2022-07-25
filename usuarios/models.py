@@ -5,7 +5,7 @@ from django.db import models
 class Usuarios(models.Model):
   # Dados pessoais
   nome = models.CharField(max_length=250, null=True, blank=False, verbose_name="Nome")
-  email = models.EmailField(verbose_name = "E-mail")
+  email = models.EmailField(verbose_name = "E-mail", unique=True)
   # Endereço do usuário
   pais = models.CharField(max_length=250, null=True, blank=False, verbose_name="País")
   cep = models.CharField(max_length=9,null=True, blank=False, verbose_name = "CEP")

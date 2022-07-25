@@ -1,7 +1,10 @@
+import email
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import serializers, status, viewsets
+from rest_framework import generics
+from rest_framework import filters
 # from rest_framework.permissions import IsAuthenticated
 
 from usuarios import models
@@ -9,6 +12,8 @@ from .serializers import UsuariosSerializer
 
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse, HttpResponse
+from django_filters.rest_framework import DjangoFilterBackend
+
 import json
 
 
@@ -17,6 +22,12 @@ class UsuariosGet(APIView):
     usuarios = models.Usuarios.objects.all()
     serializer = UsuariosSerializer(usuarios, many = True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+  
+class UsuarioLogin(generics.ListAPIView):
+  serializer_class = UsuariosSerializer
+  filter_backends = [DjangoFilterBackend]
+  filterset_fields = ['email']
+  
 
 class UsuariosPost(APIView):
   def post(self, request):
@@ -44,7 +55,7 @@ class UsuariosPut(APIView):
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class UsuariosDelete(APIView):
-  def delete(self, request, id):
+  def get(self, request, id):
     usuario = get_object_or_404(models.Usuarios.objects.all(), id=id)
     usuario.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
